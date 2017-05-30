@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import arrow
+
 from math import floor
 from time import localtime
 
@@ -8,22 +10,10 @@ from layout.row import Row
 from layout.column import Column
 
 warningColor = '\033[93m'
-months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-]
 
-months = [month[:3] for month in months]
+start = arrow.get(arrow.now().year, 1, 1)
+months = arrow.Arrow.range('month', start, limit=12)
+months = [month.format("MMM") for month in months]
 
 class Year(Column):
     def __init__(self, year, abbrev, monthColor, *args, **kwargs):
